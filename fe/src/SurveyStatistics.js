@@ -12,20 +12,19 @@ export default function SurveyStatistics({ setPage }) {
   const [statistics, setStatistics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     fetchStatistics();
   }, []);
   const handleClick = () => {
     // 현재 창에서 다운로드
-    window.location.href = "http://localhost:8000/api/survey/export/";
+    window.location.href = `${REACT_APP_BASE_URL}/api/survey/export/`;
   };
 
   const fetchStatistics = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/survey/statistics/"
-      );
+      const response = await fetch(`${REACT_APP_BASE_URL}/survey/statistics/`);
       if (response.ok) {
         const data = await response.json();
         console.log(data);

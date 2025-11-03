@@ -17,7 +17,7 @@ export default function TimeBankSurvey({ setPage }) {
     gender: "",
     residence: "",
   });
-
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -35,7 +35,7 @@ export default function TimeBankSurvey({ setPage }) {
 
     try {
       // Django API 엔드포인트로 POST 요청
-      const response = await fetch("http://localhost:8000/api/survey/", {
+      const response = await fetch(`${REACT_APP_BASE_URL}/api/survey/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
