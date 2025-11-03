@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function TimeBankSurvey({ setPage }) {
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     knows_timebank: "",
     help_receive: "",
@@ -44,6 +45,7 @@ export default function TimeBankSurvey({ setPage }) {
       });
 
       if (response.ok) {
+        setShowModal(true); // 모달 표시
         const result = await response.json();
         setSubmitMessage("설문에 참여해 주셔서 감사합니다!");
         // 폼 초기화
@@ -63,6 +65,10 @@ export default function TimeBankSurvey({ setPage }) {
           gender: "",
           residence: "",
         });
+        setTimeout(() => {
+          setShowModal(false);
+          setPage(0);
+        }, 2000);
       } else {
         const error = await response.json();
         setSubmitMessage("제출 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -177,10 +183,60 @@ export default function TimeBankSurvey({ setPage }) {
       backgroundColor: submitMessage.includes("감사") ? "#dcfce7" : "#fee2e2",
       color: submitMessage.includes("감사") ? "#166534" : "#991b1b",
     },
+    // ✅ 모달 스타일 추가
+    modalOverlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 1000,
+    },
+    modalContent: {
+      backgroundColor: "white",
+      padding: "40px",
+      borderRadius: "16px",
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+      textAlign: "center",
+      maxWidth: "400px",
+      width: "90%",
+    },
+    modalIcon: {
+      fontSize: "64px",
+      marginBottom: "20px",
+    },
+    modalTitle: {
+      fontSize: "24px",
+      fontWeight: "bold",
+      color: "#1f2937",
+      marginBottom: "12px",
+    },
+    modalMessage: {
+      fontSize: "16px",
+      color: "#6b7280",
+      lineHeight: "1.6",
+    },
   };
 
   return (
     <div style={styles.container}>
+      {showModal && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modalContent}>
+            <div style={styles.modalIcon}>✅</div>
+            <h2 style={styles.modalTitle}>제출 완료!</h2>
+            <p style={styles.modalMessage}>
+              설문에 참여해 주셔서 감사합니다!
+              <br />
+              잠시 후 메인 페이지로 이동합니다.
+            </p>
+          </div>
+        </div>
+      )}
       <div style={styles.header}>
         <h1 style={styles.title}>정릉3동 축제부스 시간은행 설문</h1>
         <p style={styles.subtitle}>시간은행에 참여해 주셔서 감사합니다</p>
