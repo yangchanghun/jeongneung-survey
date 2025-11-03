@@ -24,7 +24,9 @@ export default function SurveyStatistics({ setPage }) {
 
   const fetchStatistics = async () => {
     try {
-      const response = await fetch(`${REACT_APP_BASE_URL}/survey/statistics/`);
+      const response = await fetch(
+        `${REACT_APP_BASE_URL}/api/survey/statistics/`
+      );
       if (response.ok) {
         const data = await response.json();
         console.log(data);

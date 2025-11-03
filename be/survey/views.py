@@ -163,7 +163,7 @@ def survey_export_csv(request):
         '5번 급할 때 연락 가능한 사람',
         '6번 참여 형태',
         '7번 기대 사항',
-        '7번 기대 사항(기타)',
+        # '7번 기대 사항(기타)',
         '8번 연령대',
         '9번 성별',
         '10번 거주지',
@@ -204,24 +204,25 @@ def survey_export_csv(request):
 
 
         writer.writerow([
-            survey.id,
-            survey.get_knows_timebank_display(),
-            # survey.get_help_receive_display(),
-            받고싶은도움,
+            survey.id, # 번호
+            survey.get_knows_timebank_display(), #시간
+            # survey.get_help_receive_display(), 
+            받고싶은도움, #받고싶은 도움
             # survey.help_receive_other or '',
             # survey.get_help_give_display(),
-            줄수있는도움,
+            줄수있는도움, #줄 수 있는 도움
             # survey.help_give_other or '',
             # survey.get_time_commitment_display(),
-            참여시간,
+            참여시간, # 참여시간
             # survey.time_commitment_other or '',
-            survey.get_support_network_display(),
-            survey.get_participation_type_display(),
+            survey.get_support_network_display(), #급할때 연락가능한사람
+            survey.get_participation_type_display(), #참여 형태
             # survey.get_expectation_display(),
-            기대사항,
+            기대사항, #기대사항
             # survey.expectation_other or '',
-            survey.get_age_group_display(),
-            survey.get_gender_display(),
+            survey.get_age_group_display(), # 연령대
+            survey.get_gender_display(), # 성별
+            survey.get_residence_display(), # 거주지
             survey.created_at.strftime('%m-%d'),    # 2025-11-03
             survey.created_at.strftime('%H:%M:%S')     # 00:42:30
         ])
