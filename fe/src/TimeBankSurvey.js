@@ -75,7 +75,7 @@ export default function TimeBankSurvey({ setPage }) {
       setIsSubmitting(false);
     }
   };
-
+  console.log("BASE_URL", process.env.REACT_APP_BASE_URL);
   const styles = {
     container: {
       maxWidth: "800px",
