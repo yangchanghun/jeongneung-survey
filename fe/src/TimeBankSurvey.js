@@ -247,13 +247,13 @@ export default function TimeBankSurvey({ setPage }) {
         >
           처음으로
         </button>
-        <button
+        {/* <button
           onClick={() => {
             setPage(2);
           }}
         >
           통계보기
-        </button>
+        </button> */}
       </div>
 
       <form style={styles.form} onSubmit={handleSubmit}>

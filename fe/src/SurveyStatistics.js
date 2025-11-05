@@ -14,6 +14,11 @@ export default function SurveyStatistics({ setPage }) {
   const [error, setError] = useState(null);
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
+  const pw = "1234";
+
+  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState(false);
+
   useEffect(() => {
     fetchStatistics();
   }, []);
@@ -105,6 +110,17 @@ export default function SurveyStatistics({ setPage }) {
     jeongneung3: "정릉3동",
     other: "그 외 지역",
   };
+
+  if (!login) {
+    return (
+      <PasswordPage
+        pw={pw}
+        password={password}
+        setPassword={setPassword}
+        setLogin={setLogin}
+      />
+    );
+  }
 
   const getLabel = (key, fieldName) => {
     // 'other' 값인 경우 필드명에 따라 다른 레이블 반환
@@ -495,3 +511,53 @@ export default function SurveyStatistics({ setPage }) {
     </div>
   );
 }
+
+// ✅ 비밀번호 입력 페이지 분리
+const PasswordPage = ({ pw, password, setPassword, setLogin }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === pw) {
+      alert("관리자 로그인 성공 ✅");
+      setLogin(true);
+    } else {
+      alert("비밀번호가 틀렸습니다 ❌");
+    }
+  };
+
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <h2>관리자 비밀번호 입력</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="비밀번호를 입력하세요"
+          style={{ padding: "10px", fontSize: "16px" }}
+        />
+        <button
+          type="submit"
+          style={{
+            marginLeft: "10px",
+            padding: "10px 20px",
+            backgroundColor: "#3b82f6",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+          }}
+        >
+          접속
+        </button>
+      </form>
+    </div>
+  );
+};
